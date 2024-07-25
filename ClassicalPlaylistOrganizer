@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Piece {
+    String title;
+    String composer;
+    String duration;
+
+    public Piece(String title, String composer, String duration) {
+        this.title = title;
+        this.composer = composer;
+        this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return title + " by " + composer + " - " + duration;
+    }
+}
+
+public class ConcertPlaylistOrganizer {
+    public static void main(String[] args) {
+        ArrayList<Piece> playlist = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nConcert Playlist Organizer");
+            System.out.println("1. Add a Piece");
+            System.out.println("2. View Playlist");
+            System.out.println("3. Remove a Piece");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter piece title: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter composer: ");
+                    String composer = scanner.nextLine();
+                    System.out.print("Enter duration: ");
+                    String duration = scanner.nextLine();
+                    playlist.add(new Piece(title, composer, duration));
+                    break;
+                case 2:
+                    System.out.println("\nCurrent Playlist:");
+                    for (int i = 0; i < playlist.size(); i++) {
+                        System.out.println((i + 1) + ". " + playlist.get(i));
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter the title of the piece to remove: ");
+                    String removeTitle = scanner.nextLine();
+                    playlist.removeIf(piece -> piece.title.equalsIgnoreCase(removeTitle));
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        }
+    }
+}
